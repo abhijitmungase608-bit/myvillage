@@ -1,0 +1,415 @@
+/* MyVillage - Smart Village Portal (आपलं गाव)
+ * Mobile App Simulator Stylesheet
+ * Faithfully mirrors the 15 mobile screens shown in design mockup
+ */
+
+.mobile-simulator-wrapper {
+  display: none;
+  padding: 30px 20px 60px;
+  background: radial-gradient(circle at 50% 20%, #1e3a29 0%, #081a10 100%);
+  min-height: calc(100vh - 41px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.mobile-simulator-wrapper.active {
+  display: flex;
+}
+
+/* Screen Selector Bar above the phone */
+.simulator-controls {
+  max-width: 1000px;
+  width: 100%;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.simulator-controls-title {
+  color: #a7f3d0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.screens-quick-carousel {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  scrollbar-width: thin;
+}
+
+.screen-select-pill {
+  background: transparent;
+  color: #e2e8f0;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.screen-select-pill:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.screen-select-pill.active {
+  background: var(--primary-light);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(42, 157, 92, 0.4);
+}
+
+/* Smartphone Bezel */
+.phone-mockup-frame {
+  width: 380px;
+  height: 780px;
+  background: #000000;
+  border-radius: 48px;
+  padding: 12px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 0 4px #2d3748, 0 0 0 8px #1a202c;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Phone Screen Inner Container */
+.phone-screen {
+  background: #f8fafc;
+  width: 100%;
+  height: 100%;
+  border-radius: 38px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* iOS / Android Status Bar */
+.phone-status-bar {
+  height: 38px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.phone-notch {
+  width: 120px;
+  height: 22px;
+  background: #000000;
+  border-radius: 0 0 16px 16px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notch-camera {
+  width: 10px;
+  height: 10px;
+  background: #111827;
+  border-radius: 50%;
+  border: 1px solid #374151;
+}
+
+/* Active Screen Inside Phone */
+.phone-screen-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 38px;
+  padding-bottom: 60px;
+  position: relative;
+}
+
+/* Bottom App Navigation Bar inside Phone */
+.phone-bottom-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  z-index: 90;
+}
+
+.phone-nav-item {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: all var(--transition-fast);
+}
+
+.phone-nav-item .nav-icon {
+  font-size: 1.15rem;
+}
+
+.phone-nav-item.active {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+/* Home Indicator bar on modern phones */
+.phone-home-indicator {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 4px;
+  background: #0f172a;
+  border-radius: 3px;
+  opacity: 0.3;
+  z-index: 101;
+  pointer-events: none;
+}
+
+/* Phone Individual Screens Container */
+.sim-screen {
+  display: none;
+  min-height: 100%;
+}
+
+.sim-screen.active {
+  display: block;
+  animation: fadeIn 0.2s ease;
+}
+
+/* Specific Phone Header within screens */
+.sim-app-header {
+  background: var(--primary-color);
+  color: #fff;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.sim-app-header.dark {
+  background: #0b4f2f;
+}
+
+.sim-header-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sim-icon-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+/* Screen 1: Splash Screen Styles */
+.sim-splash {
+  background: linear-gradient(180deg, #137547 0%, #073b22 100%);
+  color: #fff;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 20px 20px;
+  text-align: center;
+  position: relative;
+}
+
+.splash-logo-circle {
+  width: 90px;
+  height: 90px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.8rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  margin-bottom: 16px;
+}
+
+.splash-titles h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.splash-titles h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #a7f3d0;
+  margin-top: 4px;
+}
+
+.splash-titles p {
+  font-size: 0.85rem;
+  color: #e2e8f0;
+  margin-top: 8px;
+}
+
+.splash-bg-preview {
+  width: 100%;
+  height: 220px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  margin: 20px 0;
+}
+
+.splash-bg-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-splash-enter {
+  background: var(--accent-gold);
+  color: #78350f;
+  border: none;
+  padding: 12px 30px;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+  transition: transform var(--transition-fast);
+  width: 100%;
+}
+
+.btn-splash-enter:hover {
+  transform: scale(1.02);
+}
+
+/* Screen 3: Navigation Drawer Styles */
+.sim-drawer-menu {
+  background: #0f172a;
+  color: #fff;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.drawer-user-header {
+  padding: 24px 18px 18px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.drawer-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--primary-light);
+  object-fit: cover;
+}
+
+.drawer-user-info h4 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.drawer-user-info span {
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.drawer-links-list {
+  padding: 12px 8px;
+  flex: 1;
+}
+
+.drawer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  color: #e2e8f0;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+
+.drawer-item:hover, .drawer-item.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary-light);
+}
+
+.drawer-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.drawer-bottom-lang {
+  padding: 14px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustment for small desktop */
+@media (max-width: 480px) {
+  .phone-mockup-frame {
+    width: 100%;
+    height: 92vh;
+    border-radius: 24px;
+    padding: 6px;
+  }
+}

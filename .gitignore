@@ -1,0 +1,14 @@
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary and log files
+*.log
+*.tmp
+chrome-temp/
+.cache/
+
+# Local IDE config
+.vscode/
+.idea/

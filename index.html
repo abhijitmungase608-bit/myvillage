@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>आपलं गाव (MyVillage) - Smart Village Portal | डिजिटल गाव, समृद्ध गाव</title>
+  <meta name="description" content="आपलं गाव (MyVillage) - शेती, नोकरी, ग्रामपंचायत योजना, बाजारभाव आणि सर्व गाव सेवा एकाच ठिकाणी. Digital smart village portal.">
+  
+  <!-- Favicon SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23137547'><path d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/></svg>">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/mobile-simulator.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- =======================================================================
+       Top Controller Bar (View Mode Switcher + Multi-Language Engine)
+       ======================================================================= -->
+  <div class="top-controller-bar" id="top-controller-bar">
+    <div class="controller-left">
+      <span class="controller-badge">🌱 MyVillage Portal</span>
+      <!-- Mode Switcher -->
+      <div class="mode-switcher">
+        <button class="mode-btn active" data-mode="portal" id="mode-portal-btn">
+          <span data-i18n="modePortal">🌐 वेब पोर्टल</span>
+        </button>
+        <button class="mode-btn" data-mode="mobile" id="mode-mobile-btn">
+          <span data-i18n="modeMobile">📱 मोबाइल अ‍ॅप (15 Screens)</span>
+        </button>
+        <button class="mode-btn" data-mode="admin" id="mode-admin-btn">
+          <span data-i18n="modeAdmin">⚡ प्रशासक कक्ष</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="controller-right">
+      <!-- Language Switcher -->
+      <div class="lang-selector-group">
+        <button class="lang-btn active" data-lang="mr">मराठी</button>
+        <button class="lang-btn" data-lang="en">English</button>
+        <button class="lang-btn" data-lang="hi">हिंदी</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       MODE 1: Full-Featured Web Portal (Responsive Desktop/Tablet/Mobile)
+       ======================================================================= -->
+  <div id="portal-wrapper">
+
+    <!-- Native Mobile App Header (Visible on Mobile Screens) -->
+    <header class="native-mobile-header" id="native-mobile-header">
+      <div class="mobile-header-left">
+        <button class="mobile-menu-btn" id="mobile-drawer-toggle" onclick="toggleMobileDrawer()" aria-label="Open App Menu">☰</button>
+        <div class="mobile-brand-info" onclick="navigateToSection('home')">
+          <h2>🌱 कोठे (Kothe)</h2>
+          <span>ता. नेवासा, जि. अहिल्यानगर • ४१४६०६</span>
+        </div>
+      </div>
+      <div class="mobile-header-right">
+        <button class="mobile-lang-pill" id="mobile-lang-toggle-btn" onclick="toggleNextLanguage()">मराठी</button>
+        <button class="mobile-profile-btn" onclick="openModal('login-modal')">👤</button>
+      </div>
+    </header>
+
+    <!-- Slide-out Mobile App Drawer -->
+    <div class="native-mobile-drawer-overlay" id="mobile-drawer-overlay" onclick="closeMobileDrawer()"></div>
+    <div class="native-mobile-drawer" id="mobile-app-drawer">
+      <div class="drawer-top-profile">
+        <div class="drawer-profile-box">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Resident" class="drawer-avatar-img">
+          <div class="drawer-profile-text">
+            <h4>अभिजीत मंगसे</h4>
+            <span>Resident • कोठे (नेवासा)</span>
+          </div>
+        </div>
+        <button class="drawer-close-btn" onclick="closeMobileDrawer()">✕</button>
+      </div>
+
+      <div class="drawer-nav-menu">
+        <div class="drawer-nav-link" onclick="navigateToSection('home'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>🏠</span> <span>मुख्य पृष्ठ (Home)</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('notices'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>🏛️</span> <span>ग्रामपंचायत व सूचना</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('farmer'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>🌾</span> <span>शेती विभाग व भाव</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('jobs'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>💼</span> <span>नोकरी व शिक्षण</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('business'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>🏪</span> <span>स्थानिक व्यवसाय</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('complaints'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>📝</span> <span>तक्रार नोंदवा (Grievance)</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('marketplace'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>🛒</span> <span>गाव मार्केटप्लेस</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('map'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>🗺️</span> <span>कोठे गाव नकाशा (Google Maps)</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="navigateToSection('events'); closeMobileDrawer();">
+          <div class="drawer-nav-link-left"><span>🎉</span> <span>कार्यक्रम व उत्सव</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="setMode('admin'); closeMobileDrawer();" style="color: #fbbf24;">
+          <div class="drawer-nav-link-left"><span>⚡</span> <span>प्रशासक नियंत्रण कक्ष</span></div>
+          <span>›</span>
+        </div>
+        <div class="drawer-nav-link" onclick="openModal('sos-modal'); closeMobileDrawer();" style="color: #f87171;">
+          <div class="drawer-nav-link-left"><span>🚨</span> <span>आपत्कालीन हेल्पलाईन</span></div>
+          <span>›</span>
+        </div>
+      </div>
+
+      <div class="drawer-footer-actions">
+        <span style="font-size: 0.8rem; color: #94a3b8;">भाषा निवडा:</span>
+        <div style="display: flex; gap: 4px;">
+          <button class="lang-btn active" data-lang="mr" onclick="setLanguage('mr'); closeMobileDrawer();">मराठी</button>
+          <button class="lang-btn" data-lang="en" onclick="setLanguage('en'); closeMobileDrawer();">EN</button>
+          <button class="lang-btn" data-lang="hi" onclick="setLanguage('hi'); closeMobileDrawer();">हिंदी</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portal Header (Desktop) -->
+    <header class="portal-header">
+      <div class="header-container">
+        <!-- Brand Logo & Titles -->
+        <a class="brand-wrapper" onclick="navigateToSection('home')">
+          <div class="brand-logo-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+          </div>
+          <div class="brand-titles">
+            <h1 data-i18n="appTitle">कोठे (Kothe)</h1>
+            <span class="tagline" data-i18n="appSubtitle">Smart Village Portal • ता. नेवासा</span>
+          </div>
+        </a>
+
+        <!-- Village Selector -->
+        <div class="village-selector-wrap">
+          <span>📍</span>
+          <select class="village-select" id="village-picker">
+            <option value="kothe" selected>कोठे (ता. नेवासा, अहिल्यानगर)</option>
+            <option value="chanda">चांदा (Chanda 414606)</option>
+            <option value="rastapur">रास्तापूर (Rastapur)</option>
+            <option value="newasa">नेवासा शहर व ग्रामीण</option>
+          </select>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="portal-nav">
+          <button class="nav-link active" data-target="home" data-i18n="navHome">मुख्य पृष्ठ</button>
+          <button class="nav-link" data-target="notices" data-i18n="latestNoticeLabel">बातम्या व सूचना</button>
+          <button class="nav-link" data-target="farmer" data-i18n="srvSheti">शेतकरी विभाग</button>
+          <button class="nav-link" data-target="jobs" data-i18n="srvNokri">नोकरी व शिक्षण</button>
+          <button class="nav-link" data-target="business" data-i18n="srvVyavasay">व्यवसाय निर्देशिका</button>
+          <button class="nav-link" data-target="complaints" data-i18n="srvTakrar">तक्रार नोंदवा</button>
+          <button class="nav-link" data-target="marketplace" data-i18n="srvMarket">मार्केटप्लेस</button>
+          <button class="nav-link" data-target="map" data-i18n="navMap">गावाचा नकाशा</button>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <button class="btn-sos" id="sos-btn">
+            <span>🚨</span> <span data-i18n="srvMadat">आपत्कालीन मदत</span>
+          </button>
+          <button class="btn-auth" id="auth-btn">
+            <span>👤</span> <span data-i18n="loginBtn">लॉगिन</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Breaking / Latest Announcements Ticker -->
+    <div class="portal-ticker">
+      <div class="ticker-inner">
+        <span class="ticker-tag" data-i18n="latestNoticeLabel">📢 ताज्या सूचना</span>
+        <div class="ticker-content" onclick="navigateToSection('notices')">
+          <span>ग्रामपंचायत मासिक ग्रामसभा: २५ एप्रिल २०२५, सकाळी ११:०० वाजता सभागृहात उपस्थित राहावे | कापूस व सोयाबीन हमीभाव वाढ २०२५ अधिकृत परिपत्रक प्रसिद्ध | शेतकरी पीक विमा नोंदणी सुरू</span>
+        </div>
+        <a class="ticker-link" onclick="navigateToSection('notices')" data-i18n="viewAllNotices">सर्व सूचना →</a>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="portal-container">
+
+      <!-- ================= SECTION: HOME ================= -->
+      <section class="view-section active" id="section-home">
+        <!-- Hero Banner with Scenic Village Backdrop -->
+        <div class="hero-banner">
+          <img src="assets/images/hero-banner.jpg" alt="Smart Indian Village" class="hero-bg-image" />
+          <div class="hero-overlay"></div>
+          <div class="hero-content">
+            <span class="hero-badge">🌱 डिजिटल ग्रामविकास अभियान २०२५</span>
+            <h2 class="hero-title" data-i18n="welcomeHeader">आपल्या गावात आपले स्वागत आहे!</h2>
+            <p class="hero-subtitle" data-i18n="welcomeSub">शेती, नोकरी, योजना आणि सर्व महत्त्वाची माहिती आता एकाच ठिकाणी.</p>
+
+            <!-- Search Bar -->
+            <div class="hero-search-box">
+              <span>🔍</span>
+              <input type="text" id="hero-search-input" placeholder="काय शोधत आहात? (उदा. नोकरी, तक्रार, बाजारभाव, योजना...)" data-i18n-placeholder="searchPlaceholder" />
+              <button class="hero-search-btn" id="hero-search-btn">शोधा</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Services Grid (Matches Screen 2 in Mockup) -->
+        <div class="services-section">
+          <div class="section-header">
+            <div class="section-titles">
+              <h2 data-i18n="servicesTitle">महत्त्वाच्या सेवा</h2>
+              <p>गावातील सर्व शासकीय, कृषी व दैनंदिन नागरिक सेवा एका क्लिकवर</p>
+            </div>
+          </div>
+
+          <div class="services-grid">
+            <!-- 1. Grampanchayat -->
+            <div class="service-card grampanchayat" data-section="notices">
+              <div class="service-icon-box">🏛️</div>
+              <span class="service-label" data-i18n="srvGrampanchayat">ग्रामपंचायत</span>
+            </div>
+            <!-- 2. Sheti -->
+            <div class="service-card sheti" data-section="farmer">
+              <div class="service-icon-box">🌾</div>
+              <span class="service-label" data-i18n="srvSheti">शेती</span>
+            </div>
+            <!-- 3. Nokri -->
+            <div class="service-card nokri" data-section="jobs">
+              <div class="service-icon-box">💼</div>
+              <span class="service-label" data-i18n="srvNokri">नोकरी</span>
+            </div>
+            <!-- 4. Vyavasay -->
+            <div class="service-card vyavasay" data-section="business">
+              <div class="service-icon-box">🏪</div>
+              <span class="service-label" data-i18n="srvVyavasay">व्यवसाय</span>
+            </div>
+            <!-- 5. Takrar -->
+            <div class="service-card takrar" data-section="complaints">
+              <div class="service-icon-box">📝</div>
+              <span class="service-label" data-i18n="srvTakrar">तक्रार</span>
+            </div>
+            <!-- 6. Madat -->
+            <div class="service-card madat" onclick="openModal('sos-modal')">
+              <div class="service-icon-box">🤝</div>
+              <span class="service-label" data-i18n="srvMadat">मदत</span>
+            </div>
+            <!-- 7. Marketplace -->
+            <div class="service-card market" data-section="marketplace">
+              <div class="service-icon-box">🛒</div>
+              <span class="service-label" data-i18n="srvMarket">मार्केटप्लेस</span>
+            </div>
+            <!-- 8. Itar / Map -->
+            <div class="service-card itar" data-section="map">
+              <div class="service-icon-box">🗺️</div>
+              <span class="service-label" data-i18n="srvItar">नकाशा व इतर</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Home Featured Highlights: Notices Preview + Mandi Rates Widget -->
+        <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; margin-top: 30px;">
+          <!-- Left: Pinned Notices -->
+          <div>
+            <div class="section-header" style="margin-bottom: 16px;">
+              <div class="section-titles">
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #0b4f2f;">📢 ग्रामपंचायत ठळक घडामोडी</h3>
+              </div>
+              <button class="pill-btn" onclick="navigateToSection('notices')">सर्व सूचना पहा →</button>
+            </div>
+            <div class="notices-grid" id="home-pinned-notices">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Right: Live Weather & Fast Mandi snapshot -->
+          <div>
+            <div class="section-header" style="margin-bottom: 16px;">
+              <div class="section-titles">
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #0b4f2f;">🌤️ आजचे हवामान व भाव</h3>
+              </div>
+              <button class="pill-btn" onclick="navigateToSection('farmer')">संपूर्ण बाजारभाव →</button>
+            </div>
+            <!-- Weather Card -->
+            <div class="weather-card">
+              <div class="weather-header">
+                <div>
+                  <h4 style="font-size: 1.1rem; font-weight: 700;">हवामान अंदाज (कोठे - नेवासा ग्रामीण)</h4>
+                  <div class="weather-condition" data-i18n="weatherDesc">बहुतांश ढगाळ, शेतीस अनुकूल</div>
+                </div>
+                <div style="font-size: 2.4rem;">⛅</div>
+              </div>
+              <div class="weather-temp">28°C</div>
+              <div class="weather-details-grid">
+                <div class="weather-detail-item">
+                  <span style="color:#bae6fd;">💨 <span data-i18n="wind">वारा</span></span>
+                  <div class="val">12 किमी/तास (पश्चिम)</div>
+                </div>
+                <div class="weather-detail-item">
+                  <span style="color:#bae6fd;">💧 <span data-i18n="humidity">आर्द्रता</span></span>
+                  <div class="val">64%</div>
+                </div>
+                <div class="weather-detail-item">
+                  <span style="color:#bae6fd;">🌧️ <span data-i18n="rainChance">पावसाची शक्यता</span></span>
+                  <div class="val">10%</div>
+                </div>
+                <div class="weather-detail-item">
+                  <span style="color:#bae6fd;">☀️ सूर्योदय / सूर्यास्त</span>
+                  <div class="val">06:08 AM / 06:45 PM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION: NOTICES (Screen 4) ================= -->
+      <section class="view-section" id="section-notices">
+        <div class="section-header">
+          <div class="section-titles">
+            <h2 data-i18n="latestNoticeLabel">बातम्या व सूचना</h2>
+            <p>ग्रामपंचायत, कृषी विभाग व समाजकल्याण विभागाच्या अधिकृत घोषणा</p>
+          </div>
+          <!-- Category Filter Pills -->
+          <div class="filter-pills" id="notice-pills">
+            <button class="pill-btn active" data-filter="all" data-i18n="catAll">सर्व</button>
+            <button class="pill-btn" data-filter="grampanchayat" data-i18n="srvGrampanchayat">ग्रामपंचायत</button>
+            <button class="pill-btn" data-filter="farming" data-i18n="srvSheti">शेती</button>
+            <button class="pill-btn" data-filter="education">शिक्षण</button>
+            <button class="pill-btn" data-filter="development">विकास कामे</button>
+          </div>
+        </div>
+
+        <div class="notices-grid" id="notices-container">
+          <!-- Dynamic Notices Cards -->
+        </div>
+      </section>
+
+      <!-- ================= SECTION: FARMER ZONE (Screen 5) ================= -->
+      <section class="view-section" id="section-farmer">
+        <!-- Farmer Zone Hero Banner -->
+        <div class="farmer-banner-wrap">
+          <img src="assets/images/farmer-banner.jpg" alt="Farmer Zone" class="farmer-banner-img" />
+          <div class="farmer-banner-overlay">
+            <div class="farmer-banner-text">
+              <span class="hero-badge">🚜 बळीराजा प्रगती मंच</span>
+              <h2 data-i18n="farmerHeroTitle">शेतकऱ्यांच्या प्रगतीसाठी स्मार्ट माहिती, एकाच ठिकाणी</h2>
+              <p>हवामान अंदाज, कृषी उत्पन्न बाजार समिती दर, अवजारे भाडे आणि शासकीय अनुदाने.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Farmer Tools 6-Grid -->
+        <div class="farmer-tools-grid">
+          <div class="farmer-tool-btn" onclick="showToast('हवामान अंदाज: पुढील ३ दिवस हवामान कोरडे राहील.')">
+            <span class="farmer-tool-icon">🌤️</span>
+            <span class="farmer-tool-label" data-i18n="toolHavaman">हवामान</span>
+          </div>
+          <div class="farmer-tool-btn" onclick="document.getElementById('mandi-table-body').scrollIntoView({behavior:'smooth'})">
+            <span class="farmer-tool-icon">📊</span>
+            <span class="farmer-tool-label" data-i18n="toolMandi">मंडी भाव</span>
+          </div>
+          <div class="farmer-tool-btn" onclick="showToast('कृषी मार्गदर्शक: कांदा पिकावरील करपा रोगासाठी त्वरित फवारणी करा.')">
+            <span class="farmer-tool-icon">👨‍🌾</span>
+            <span class="farmer-tool-label" data-i18n="toolMargadarshan">कृषी मार्गदर्शन</span>
+          </div>
+          <div class="farmer-tool-btn" onclick="navigateToSection('marketplace')">
+            <span class="farmer-tool-icon">🚜</span>
+            <span class="farmer-tool-label" data-i18n="toolBhade">अवजारे भाडे</span>
+          </div>
+          <div class="farmer-tool-btn" onclick="navigateToSection('business')">
+            <span class="farmer-tool-icon">🌱</span>
+            <span class="farmer-tool-label" data-i18n="toolKhat">बियाणे व खते</span>
+          </div>
+          <div class="farmer-tool-btn" onclick="openModal('post-ad-modal')">
+            <span class="farmer-tool-icon">📸</span>
+            <span class="farmer-tool-label" data-i18n="toolVikri">फसल विक्री</span>
+          </div>
+        </div>
+
+        <!-- Weather + Mandi Table Split -->
+        <div class="farmer-split-grid">
+          <!-- Weather Widget -->
+          <div class="weather-card">
+            <div class="weather-header">
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 800;" data-i18n="weatherTitle">आजचे हवामान</h4>
+                <div class="weather-condition" data-i18n="weatherDesc">बहुतांश ढगाळ, शेतीस अनुकूल</div>
+              </div>
+              <div style="font-size: 2.8rem;">🌦️</div>
+            </div>
+            <div class="weather-temp">28°C</div>
+            <p style="font-size: 0.85rem; color: #e0f2fe; margin-bottom: 8px;">स्थान: कोठे (हवामान केंद्र नेवासा, अहिल्यानगर)</p>
+            <div class="weather-details-grid">
+              <div class="weather-detail-item">
+                <span style="color:#bae6fd;" data-i18n="wind">वारा</span>
+                <div class="val">12 किमी/तास</div>
+              </div>
+              <div class="weather-detail-item">
+                <span style="color:#bae6fd;" data-i18n="humidity">आर्द्रता</span>
+                <div class="val">64%</div>
+              </div>
+              <div class="weather-detail-item">
+                <span style="color:#bae6fd;" data-i18n="rainChance">पावसाची शक्यता</span>
+                <div class="val">10%</div>
+              </div>
+              <div class="weather-detail-item">
+                <span style="color:#bae6fd;">हवेचा दाब</span>
+                <div class="val">1012 hPa</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Mandi Rates Table -->
+          <div class="mandi-rates-card">
+            <div class="mandi-card-header">
+              <div>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #0b4f2f;" data-i18n="mandiTitle">आजचे बाजारभाव (मंडी दर)</h3>
+                <small style="color: #64748b;">कृषी उत्पन्न बाजार समिती (APMC) थेट दर अद्ययावत</small>
+              </div>
+              <span class="notice-badge" style="background:#dcfce7; color:#15803d;">🔴 Live Updates</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th data-i18n="crop">पीक व जात</th>
+                    <th data-i18n="minRate">किमान</th>
+                    <th data-i18n="maxRate">कमाल</th>
+                    <th data-i18n="avgRate">सरासरी दर</th>
+                    <th data-i18n="trend">बदल</th>
+                  </tr>
+                </thead>
+                <tbody id="mandi-table-body">
+                  <!-- Dynamic Mandi Rates -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION: JOBS & EDUCATION (Screen 6) ================= -->
+      <section class="view-section" id="section-jobs">
+        <div class="section-header">
+          <div class="section-titles">
+            <h2 data-i18n="jobsTitle">नोकरी व शिक्षण विभाग</h2>
+            <p>ग्रामीण तरुणांसाठी सरकारी भरती, खाजगी नोकऱ्या व शैक्षणिक शिष्यवृत्ती</p>
+          </div>
+          <!-- Tabs -->
+          <div class="filter-pills" id="job-pills">
+            <button class="pill-btn active" data-filter="all" data-i18n="catAll">सर्व संधी</button>
+            <button class="pill-btn" data-filter="jobs" data-i18n="tabJobs">नोकऱ्या</button>
+            <button class="pill-btn" data-filter="scholarship" data-i18n="tabScholarship">शिष्यवृत्ती</button>
+            <button class="pill-btn" data-filter="exams" data-i18n="tabExams">स्पर्धा परीक्षा</button>
+          </div>
+        </div>
+
+        <div class="jobs-list" id="jobs-container">
+          <!-- Dynamic Jobs -->
+        </div>
+      </section>
+
+      <!-- ================= SECTION: BUSINESS DIRECTORY (Screen 7) ================= -->
+      <section class="view-section" id="section-business">
+        <div class="section-header">
+          <div class="section-titles">
+            <h2 data-i18n="bizTitle">स्थानिक व्यवसाय निर्देशिका</h2>
+            <p>गावातील सर्व दुकाने, व्यावसायिक आणि सेवांचा थेट व्हॉट्सअ‍ॅप व कॉल संपर्क</p>
+          </div>
+          <button class="btn-auth" onclick="showToast('नवीन व्यवसाय नोंदणी फॉर्म उघडत आहे...')">
+            <span data-i18n="addBizBtn">+ नवीन व्यवसाय जोडा</span>
+          </button>
+        </div>
+
+        <!-- Search & Filter Bar -->
+        <div style="display: flex; gap: 14px; margin-bottom: 20px; flex-wrap: wrap;">
+          <input type="text" id="biz-search-input" class="form-control" style="max-width: 380px;" placeholder="व्यवसायाचा शोध घ्या (उदा. किराणा, मेडिकल, सलून...)" data-i18n-placeholder="bizSearch" />
+          <div class="filter-pills" id="biz-pills">
+            <button class="pill-btn active" data-filter="all" data-i18n="catAll">सर्व</button>
+            <button class="pill-btn" data-filter="grocery" data-i18n="catShops">किराणा</button>
+            <button class="pill-btn" data-filter="medical">मेडिकल</button>
+            <button class="pill-btn" data-filter="services" data-i18n="catServices">सेवा व सलून</button>
+            <button class="pill-btn" data-filter="agriculture">शेती केंद्र</button>
+            <button class="pill-btn" data-filter="hotel" data-i18n="catHotel">हॉटेल</button>
+          </div>
+        </div>
+
+        <div class="biz-grid" id="biz-container">
+          <!-- Dynamic Business Cards with WhatsApp -->
+        </div>
+      </section>
+
+      <!-- ================= SECTION: COMPLAINTS & HELP (Screen 8) ================= -->
+      <section class="view-section" id="section-complaints">
+        <div class="section-header">
+          <div class="section-titles">
+            <h2 data-i18n="complaintsTitle">तक्रार नोंदणी व निवारण</h2>
+            <p>गाव समस्या (रस्ते, पाणी, वीज, गटारे) थेट ग्रामपंचायतीकडे नोंदवा आणि ऑनलाइन ट्रॅक करा</p>
+          </div>
+        </div>
+
+        <div class="complaints-container">
+          <!-- Left: Complaint Submission Form -->
+          <div class="complaint-form-card">
+            <h3 style="font-size: 1.25rem; font-weight: 800; color: #0b4f2f; margin-bottom: 16px;">
+              📝 नवीन तक्रार नोंदवा
+            </h3>
+
+            <form id="new-complaint-form">
+              <div class="form-group">
+                <label class="form-label" data-i18n="complaintType">तक्रारीचा प्रकार *</label>
+                <select class="form-control" id="complaint-type-select" required>
+                  <option value="Road / रस्ते व खड्डे दुरुस्ती">रस्ता / खड्डे / गटारे दुरुस्ती</option>
+                  <option value="Water Supply / पाणीपुरवठा">पाणीपुरवठा व पाईपलाईन गळती</option>
+                  <option value="Street Light / वीज पुरवठा व दिवाबत्ती">वीज पुरवठा / स्ट्रीट लाईट बंद</option>
+                  <option value="Sanitation / स्वच्छता व कचरा">कचरा व्यवस्थापन व स्वच्छता</option>
+                  <option value="Health / आरोग्य व फवारणी">डास निर्मूलन व औषध फवारणी</option>
+                  <option value="Other / इतर समस्या">इतर तक्रार</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">तक्रारदाराचे नाव व मोबाईल नंबर *</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                  <input type="text" class="form-control" id="complaint-reporter-name" placeholder="आपले नाव" value="अभिजीत मंगसे" required />
+                  <input type="tel" class="form-control" placeholder="मोबाईल नंबर" value="9876543210" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="locationGps">प्रभाग / गल्ली / स्थान *</label>
+                <input type="text" class="form-control" id="complaint-ward-input" placeholder="उदा. गावडेमळा, प्रभाग क्र. ३, मारुती मंदिर जवळ" required />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="complaintDesc">तक्रारीचे सविस्तर वर्णन *</label>
+                <textarea class="form-control" id="complaint-desc-text" rows="4" placeholder="समस्येचे सविस्तर वर्णन लिहा..." required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" data-i18n="addPhoto">फोटो जोडा (ऐच्छिक)</label>
+                <div class="file-upload-box" onclick="document.getElementById('complaint-photo-input').click()">
+                  <div style="font-size: 2rem;">📷</div>
+                  <div style="font-weight: 700; color: #137547;">कॅमेऱ्याने फोटो काढा किंवा निवडा</div>
+                  <small style="color: #64748b;">(JPG, PNG कमाल 5MB)</small>
+                  <input type="file" id="complaint-photo-input" style="display: none;" accept="image/*" onchange="showToast('फोटो जोडला गेला!')">
+                </div>
+              </div>
+
+              <button type="submit" class="btn-submit-complaint" data-i18n="submitComplaint">
+                🚀 तक्रार सबमिट करा (Submit Complaint)
+              </button>
+            </form>
+          </div>
+
+          <!-- Right: Live Complaints Status Tracker Feed -->
+          <div>
+            <div class="section-header" style="margin-bottom: 14px;">
+              <div class="section-titles">
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #0b4f2f;">
+                  🔍 अलीकडील तक्रारी व निवारण स्थिती
+                </h3>
+              </div>
+            </div>
+
+            <div class="complaints-feed" id="complaints-feed">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION: MARKETPLACE (Screen 9) ================= -->
+      <section class="view-section" id="section-marketplace">
+        <div class="section-header">
+          <div class="section-titles">
+            <h2 data-i18n="marketTitle">आपलं गाव मार्केटप्लेस</h2>
+            <p>शेतकरी, दुकानदार व गावकऱ्यांसाठी मोफत खरेदी, विक्री व भाडे तत्वावरील वस्तू</p>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center;">
+            <div class="filter-pills" id="market-pills">
+              <button class="pill-btn active" data-filter="all" data-i18n="catAll">सर्व</button>
+              <button class="pill-btn" data-filter="sell" data-i18n="tabSell">विक्री</button>
+              <button class="pill-btn" data-filter="rent" data-i18n="tabRent">भाडे</button>
+              <button class="pill-btn" data-filter="service" data-i18n="tabService">सेवा</button>
+            </div>
+            <button class="btn-auth" onclick="openModal('post-ad-modal')">
+              <span data-i18n="postAdBtn">+ नवीन जाहिरात द्या</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="marketplace-grid" id="marketplace-container">
+          <!-- Dynamic Marketplace items -->
+        </div>
+      </section>
+
+      <!-- ================= SECTION: INTERACTIVE VILLAGE MAP (Screen 10 - KOTHE 414606) ================= -->
+      <section class="view-section" id="section-map">
+        <div class="section-header">
+          <div class="section-titles">
+            <h2>🗺️ कोठे गाव नकाशा (Kothe Village Live Map)</h2>
+            <p>ता. नेवासा, जि. अहिल्यानगर • ४१४६०६ | Google Maps उपग्रह व मार्ग नकाशा थेट दृश्य</p>
+          </div>
+        </div>
+
+        <div class="village-map-container">
+          <!-- Left: Google Maps Main Container with Type Switcher -->
+          <div class="map-main-view-box">
+            <div class="map-view-header-bar">
+              <div class="map-switcher-pills">
+                <button class="map-type-btn active" id="btn-map-roadmap" onclick="switchMapType('roadmap')">🗺️ मार्ग नकाशा (Road)</button>
+                <button class="map-type-btn" id="btn-map-satellite" onclick="switchMapType('satellite')">🛰️ उपग्रह दृश्य (Satellite)</button>
+                <button class="map-type-btn" id="btn-map-local" onclick="switchMapType('local')">📍 स्थानिक सुविधा (Landmarks)</button>
+              </div>
+              <a href="https://maps.app.goo.gl/4MzqXqfZYtbzAM1K8" target="_blank" class="open-gmaps-link" title="Open directly in Google Maps Mobile App">
+                <span>🗺️ Google Maps App मध्ये उघडा</span>
+              </a>
+            </div>
+
+            <!-- Google Map Live Iframe for Kothe 414606 -->
+            <div class="google-map-iframe-wrap" id="kothe-google-map-wrap">
+              <iframe id="kothe-gmap-iframe" src="https://maps.google.com/maps?q=19.3820027,74.9719621(Kothe+Village+Newasa)&t=&z=15&ie=UTF8&iwloc=B&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <!-- Local SVG Landmark Canvas -->
+            <div class="map-canvas-wrapper" id="kothe-local-map-wrap">
+              <svg id="village-svg-map" class="village-map-svg" viewBox="0 0 700 500"></svg>
+            </div>
+          </div>
+
+          <!-- Right: Location Details Sidebar -->
+          <div class="map-sidebar-details">
+            <div>
+              <div class="kothe-village-badge">
+                <strong style="font-size: 0.95rem; color: #0b4f2f;">📍 कोठे (Kothe / Kauthe)</strong><br>
+                तालुका: <strong>नेवासा (Newasa)</strong><br>
+                जिल्हा: <strong>अहिल्यानगर (अहमदनगर)</strong><br>
+                पिनकोड: <strong>४१४६०६ (414606)</strong><br>
+                पोस्ट ऑफिस: चांदा / कौठे शाखा डाकघर<br>
+                <small style="color: #64748b;">GPS: 19.3820° N, 74.9720° E</small>
+              </div>
+              <div id="map-facility-details">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= SECTION: EVENTS & FESTIVALS (Screen 11) ================= -->
+      <section class="view-section" id="section-events">
+        <div class="section-header">
+          <div class="section-titles">
+            <h2 data-i18n="eventsTitle">कार्यक्रम, सण व उत्सव</h2>
+            <p>गावातील सांस्कृतिक सोहळे, क्रीडा स्पर्धा व सण उत्सवाची माहिती</p>
+          </div>
+        </div>
+
+        <div class="events-grid" id="events-container">
+          <!-- Dynamic Events -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Portal Footer -->
+    <footer class="portal-footer">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <!-- Col 1: About -->
+          <div class="footer-col">
+            <h4>आपलं गाव (MyVillage)</h4>
+            <p>
+              स्मार्ट ग्रामपंचायत डिजिटल पोर्टल - ग्रामीण भागातील प्रत्येक नागरिकाला शासकीय योजना, शेती मार्गदर्शन, नोकरी संधी आणि स्थानिक सेवा एकाच छताखाली उपलब्ध करून देणारा आधुनिक डिजिटल उपक्रम.
+            </p>
+            <div class="footer-badges">
+              <span class="footer-badge-item">✓ Responsive Design</span>
+              <span class="footer-badge-item">🔒 Secure & Reliable</span>
+              <span class="footer-badge-item">🌐 Multi-Language</span>
+              <span class="footer-badge-item">👥 Community Driven</span>
+            </div>
+          </div>
+
+          <!-- Col 2: Quick Links -->
+          <div class="footer-col">
+            <h4>महत्त्वाचे दुवे</h4>
+            <ul>
+              <li><a onclick="navigateToSection('notices')">ग्रामपंचायत सूचना</a></li>
+              <li><a onclick="navigateToSection('farmer')">शेतकरी बाजारभाव (मंडी)</a></li>
+              <li><a onclick="navigateToSection('jobs')">सरकारी व खाजगी नोकऱ्या</a></li>
+              <li><a onclick="navigateToSection('complaints')">तक्रार नोंदणी</a></li>
+              <li><a onclick="navigateToSection('marketplace')">गाव बाजारपेठ</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Government Schemes -->
+          <div class="footer-col">
+            <h4>शासकीय योजना</h4>
+            <ul>
+              <li><a href="https://pmkisan.gov.in" target="_blank">पीएम किसान सन्मान निधी</a></li>
+              <li><a href="https://mahadbt.maharashtra.gov.in" target="_blank">महा-DBT शेतकरी योजना</a></li>
+              <li><a href="https://pmfby.gov.in" target="_blank">पंतप्रधान पीक विमा</a></li>
+              <li><a href="https://jaljeevanmission.gov.in" target="_blank">जल जीवन मिशन</a></li>
+              <li><a href="https://pmaymis.gov.in" target="_blank">पीएम आवास योजना (ग्रामीण)</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Contact & Office -->
+          <div class="footer-col">
+            <h4>कार्यालय व संपर्क</h4>
+            <p><strong>ग्रामपंचायत कार्यालय:</strong> मुख्य चौक, मु.पो. कोठे, ता. नेवासा, जि. अहिल्यानगर (अहमदनगर) - ४१४६०६</p>
+            <p style="margin-top: 6px;">📞 <strong>फोन:</strong> ०२४२७-२४५१००</p>
+            <p>✉️ <strong>ईमेल:</strong> grampanchayat.kothe@gmail.com</p>
+            <p style="margin-top: 8px; color: #a7f3d0;"><strong>वेळ:</strong> सोम ते शनि (सकाळी १०:०० ते संध्याकाळी ०६:००)</p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>
+            <strong>Apna Gaon | Digital Gaon | Samruddha Gaon</strong> • 
+            डिजिटल गाव समृद्ध भविष्य - माहिती • सेवा • संधी • विकास | आपलं गाव आपली जबाबदारी © २०२५
+          </div>
+          <div class="social-links">
+            <a href="#" class="social-icon" title="Facebook">f</a>
+            <a href="#" class="social-icon" title="YouTube">▶</a>
+            <a href="#" class="social-icon" title="Instagram">ig</a>
+            <a href="#" class="social-icon" title="WhatsApp">wa</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- =======================================================================
+       MODE 2: Interactive Smartphone App Simulator (15 Mockup Screens)
+       ======================================================================= -->
+  <div class="mobile-simulator-wrapper" id="mobile-simulator-wrapper">
+
+    <!-- Screen Selector Controls Bar -->
+    <div class="simulator-controls">
+      <div class="simulator-controls-title">
+        📱 स्क्रीन निवडा (Select from 15 Mobile App Mockup Screens)
+      </div>
+      <div class="screens-quick-carousel" id="sim-screens-carousel">
+        <!-- Generated by mobile-simulator.js -->
+      </div>
+    </div>
+
+    <!-- Smartphone Mockup Bezel -->
+    <div class="phone-mockup-frame">
+      <div class="phone-screen">
+        <!-- Status Bar -->
+        <div class="phone-status-bar">
+          <span id="phone-status-time">9:41</span>
+          <div class="phone-notch">
+            <div class="notch-camera"></div>
+          </div>
+          <span>📶 5G 🔋 98%</span>
+        </div>
+
+        <!-- Phone Screen Content (Switches between 15 screens) -->
+        <div class="phone-screen-content" id="phone-screen-content">
+
+          <!-- ================= SCREEN 1: Splash Screen ================= -->
+          <div class="sim-screen" id="sim-screen-1">
+            <div class="sim-splash">
+              <div>
+                <div class="splash-logo-circle">🌱</div>
+                <div class="splash-titles">
+                  <h2>आपलं गाव</h2>
+                  <h3>Smart Village Portal</h3>
+                  <p>आपल्या गावाची, आपल्या माणसांची वेबसाईट</p>
+                </div>
+              </div>
+
+              <div class="splash-bg-preview">
+                <img src="assets/images/hero-banner.jpg" alt="Village Landscape" />
+              </div>
+
+              <div style="width: 100%;">
+                <p style="font-size: 0.8rem; color: #a7f3d0; margin-bottom: 12px;">
+                  Connecting People • Building Better Villages
+                </p>
+                <button class="btn-splash-enter" onclick="showMobileScreen(2)">
+                  प्रवेश करा (Enter Portal) →
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 2: Home Screen ================= -->
+          <div class="sim-screen active" id="sim-screen-2">
+            <!-- App Header -->
+            <div class="sim-app-header">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button class="sim-icon-btn" onclick="showMobileScreen(3)">☰</button>
+                <div class="sim-header-title">
+                  <span>📍 आपलं गाव</span>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button style="background:rgba(255,255,255,0.2); border:none; color:#fff; padding:3px 8px; border-radius:12px; font-size:0.75rem;" onclick="setLanguage(AppState.currentLang==='mr'?'en':'mr')">मराठी</button>
+                <button class="sim-icon-btn" onclick="showMobileScreen(12)">👤</button>
+              </div>
+            </div>
+
+            <!-- Home Content -->
+            <div style="padding: 14px;">
+              <!-- Welcome Card -->
+              <div style="background: linear-gradient(135deg, #137547 0%, #073b22 100%); color: #fff; padding: 16px; border-radius: 16px; margin-bottom: 14px;">
+                <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 4px;">आपल्या गावात आपले स्वागत आहे!</h3>
+                <p style="font-size: 0.8rem; color: #d1fae5; margin-bottom: 12px;">शेती, नोकरी, योजना आणि सर्व महत्त्वाची माहिती एकाच ठिकाणी.</p>
+                
+                <div style="display: flex; background: #fff; border-radius: 9999px; padding: 6px 12px; align-items: center; gap: 6px;">
+                  <span>🔍</span>
+                  <input type="text" placeholder="काय शोधत आहात?" style="border:none; outline:none; font-size:0.8rem; width:100%;" onfocus="showMobileScreen(4)" />
+                </div>
+              </div>
+
+              <!-- Quick Services Grid (8 items) -->
+              <div style="margin-bottom: 14px;">
+                <div style="font-size: 0.88rem; font-weight: 700; margin-bottom: 10px; color: #0b4f2f;">महत्त्वाच्या सेवा</div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                  <div class="service-card grampanchayat" style="padding: 10px 4px;" onclick="showMobileScreen(4)">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">🏛️</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">ग्रामपंचायत</span>
+                  </div>
+                  <div class="service-card sheti" style="padding: 10px 4px;" onclick="showMobileScreen(5)">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">🌾</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">शेती</span>
+                  </div>
+                  <div class="service-card nokri" style="padding: 10px 4px;" onclick="showMobileScreen(6)">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">💼</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">नोकरी</span>
+                  </div>
+                  <div class="service-card vyavasay" style="padding: 10px 4px;" onclick="showMobileScreen(7)">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">🏪</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">व्यवसाय</span>
+                  </div>
+                  <div class="service-card takrar" style="padding: 10px 4px;" onclick="showMobileScreen(8)">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">📝</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">तक्रार</span>
+                  </div>
+                  <div class="service-card madat" style="padding: 10px 4px;" onclick="openModal('sos-modal')">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">🤝</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">मदत</span>
+                  </div>
+                  <div class="service-card market" style="padding: 10px 4px;" onclick="showMobileScreen(9)">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">🛒</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">मार्केट</span>
+                  </div>
+                  <div class="service-card itar" style="padding: 10px 4px;" onclick="showMobileScreen(10)">
+                    <div class="service-icon-box" style="width: 38px; height: 38px; font-size: 1.2rem;">🗺️</div>
+                    <span style="font-size: 0.72rem; font-weight: 700;">नकाशा</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Latest Notices Card (Screen 2 bottom) -->
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <span style="background:#fee2e2; color:#dc2626; font-size:0.7rem; font-weight:700; padding:2px 8px; border-radius:9999px;">📢 ताज्या सूचना</span>
+                  <a style="font-size:0.75rem; color:#137547; font-weight:700; cursor:pointer;" onclick="showMobileScreen(4)">सर्व सूचना →</a>
+                </div>
+                <div style="font-size:0.85rem; font-weight:700; color:#0f172a;">ग्रामपंचायत मासिक सभा २५ एप्रिल २०२५</div>
+                <div style="font-size:0.78rem; color:#64748b; margin-top:2px;">सकाळी ११ वाजता, ग्रामपंचायत मुख्य सभागृह</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 3: Navigation Menu (Drawer) ================= -->
+          <div class="sim-screen" id="sim-screen-3">
+            <div class="sim-drawer-menu">
+              <!-- Close btn + User header -->
+              <div class="drawer-user-header">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Abhijit" class="drawer-avatar" />
+                <div class="drawer-user-info" style="flex:1;">
+                  <h4>अभिजीत मंगसे</h4>
+                  <span>Resident (प्रभाग क्र. ३)</span>
+                </div>
+                <button class="sim-icon-btn" onclick="showMobileScreen(2)">✕</button>
+              </div>
+
+              <!-- Menu Items -->
+              <div class="drawer-links-list">
+                <div class="drawer-item" onclick="showMobileScreen(2)">
+                  <div class="drawer-item-left"><span>🏠</span> <span>मुख्य पृष्ठ</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(4)">
+                  <div class="drawer-item-left"><span>🏛️</span> <span>ग्रामपंचायत</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(5)">
+                  <div class="drawer-item-left"><span>🌾</span> <span>शेती विभाग</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(6)">
+                  <div class="drawer-item-left"><span>💼</span> <span>नोकरी व शिक्षण</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(7)">
+                  <div class="drawer-item-left"><span>🏪</span> <span>व्यवसाय निर्देशिका</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(8)">
+                  <div class="drawer-item-left"><span>📝</span> <span>तक्रार नोंदवा</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(9)">
+                  <div class="drawer-item-left"><span>🛒</span> <span>मार्केटप्लेस</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(11)">
+                  <div class="drawer-item-left"><span>🎉</span> <span>कार्यक्रम व उत्सव</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(10)">
+                  <div class="drawer-item-left"><span>🗺️</span> <span>गावाचा नकाशा</span></div>
+                  <span>›</span>
+                </div>
+                <div class="drawer-item" onclick="showMobileScreen(12)">
+                  <div class="drawer-item-left"><span>⚙️</span> <span>अकाउंट व सेटिंग्ज</span></div>
+                  <span>›</span>
+                </div>
+              </div>
+
+              <!-- Language Switcher in Drawer -->
+              <div class="drawer-bottom-lang">
+                <button class="lang-btn active sim-drawer-lang-btn" data-lang="mr" onclick="setLanguage('mr')">मराठी</button>
+                <button class="lang-btn sim-drawer-lang-btn" data-lang="hi" onclick="setLanguage('hi')">हिंदी</button>
+                <button class="lang-btn sim-drawer-lang-btn" data-lang="en" onclick="setLanguage('en')">English</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 4: News & Notices ================= -->
+          <div class="sim-screen" id="sim-screen-4">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">बातम्या व सूचना</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <div class="filter-pills" style="margin-bottom: 12px;">
+                <button class="pill-btn active">सर्व</button>
+                <button class="pill-btn">ग्रामपंचायत</button>
+                <button class="pill-btn">शेती</button>
+                <button class="pill-btn">शिक्षण</button>
+              </div>
+              <!-- Mobile Notices Items -->
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <div class="notice-card" style="padding:14px;">
+                  <div style="font-size:0.75rem; color:#0b4f2f; font-weight:700;">ग्रामपंचायत • २२ एप्रिल २०२५</div>
+                  <h4 style="font-size:0.95rem; margin:4px 0;">ग्रामपंचायत मासिक सभा सूचना</h4>
+                  <p style="font-size:0.8rem; color:#64748b;">मासिक आमसभेमध्ये पाणी व रस्ते कामांचे नियोजन केले जाईल.</p>
+                </div>
+                <div class="notice-card" style="padding:14px;">
+                  <div style="font-size:0.75rem; color:#b45309; font-weight:700;">शेती • २१ एप्रिल २०२५</div>
+                  <h4 style="font-size:0.95rem; margin:4px 0;">कापूस व सोयाबीन भाव वाढ</h4>
+                  <p style="font-size:0.8rem; color:#64748b;">हमीभाव वाढ अधिकृत परिपत्रक प्रसिद्ध झाले आहे.</p>
+                </div>
+                <div class="notice-card" style="padding:14px;">
+                  <div style="font-size:0.75rem; color:#0284c7; font-weight:700;">शिक्षण • २० एप्रिल २०२५</div>
+                  <h4 style="font-size:0.95rem; margin:4px 0;">शिष्यवृत्ती अर्ज सुरू</h4>
+                  <p style="font-size:0.8rem; color:#64748b;">१०वी व १२वी विद्यार्थ्यांसाठी महा-DBT अर्ज सुरू.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 5: Farmer Zone ================= -->
+          <div class="sim-screen" id="sim-screen-5">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">शेतकरी विभाग</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <div style="border-radius:12px; overflow:hidden; height:120px; position:relative; margin-bottom:12px;">
+                <img src="assets/images/farmer-banner.jpg" style="width:100%; height:100%; object-fit:cover;" />
+                <div style="position:absolute; inset:0; background:rgba(0,0,0,0.4); display:flex; align-items:center; padding:12px; color:#fff;">
+                  <strong style="font-size:0.95rem;">शेतकऱ्यांच्या प्रगतीसाठी स्मार्ट माहिती</strong>
+                </div>
+              </div>
+
+              <!-- Weather Widget Mobile -->
+              <div style="background:#0284c7; color:#fff; border-radius:12px; padding:12px; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <div>
+                    <div style="font-size:0.8rem; opacity:0.9;">आजचे हवामान</div>
+                    <div style="font-size:1.8rem; font-weight:800;">28°C</div>
+                    <div style="font-size:0.75rem;">बहुतांश ढगाळ • वारा: १२ किमी/तास</div>
+                  </div>
+                  <div style="font-size:2rem;">⛅</div>
+                </div>
+              </div>
+
+              <!-- Mandi rates mini -->
+              <div style="background:#fff; border-radius:12px; padding:10px; border:1px solid #e2e8f0;">
+                <div style="font-size:0.85rem; font-weight:800; color:#0b4f2f; margin-bottom:6px;">आजचे बाजारभाव (क्विंटल)</div>
+                <div style="font-size:0.8rem; line-height:1.8;">
+                  <div style="display:flex; justify-content:space-between;"><span>कांदा (लाल)</span> <strong>₹2,200 <small style="color:green;">▲</small></strong></div>
+                  <div style="display:flex; justify-content:space-between;"><span>कापूस</span> <strong>₹7,600 <small style="color:green;">▲</small></strong></div>
+                  <div style="display:flex; justify-content:space-between;"><span>सोयाबीन</span> <strong>₹4,650 <small style="color:red;">▼</small></strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 6: Jobs & Education ================= -->
+          <div class="sim-screen" id="sim-screen-6">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">नोकरी व शिक्षण</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <div class="filter-pills" style="margin-bottom: 10px;">
+                <button class="pill-btn active">नोकऱ्या</button>
+                <button class="pill-btn">शिष्यवृत्ती</button>
+                <button class="pill-btn">परीक्षा</button>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="job-card" style="padding:12px;">
+                  <div>
+                    <div style="font-size:0.9rem; font-weight:700;">Tata Motors - Apprentice</div>
+                    <div style="font-size:0.75rem; color:#64748b;">ITI / Diploma | पुणे | ३० एप्रिल २०२५</div>
+                  </div>
+                  <button class="btn-apply" style="padding:6px 12px; font-size:0.75rem;" onclick="showToast('अर्ज माहिती उघडली!')">पहा</button>
+                </div>
+                <div class="job-card" style="padding:12px;">
+                  <div>
+                    <div style="font-size:0.9rem; font-weight:700;">Police Bharti 2025</div>
+                    <div style="font-size:0.75rem; color:#64748b;">10th/12th Pass | २५ एप्रिल २०२५</div>
+                  </div>
+                  <button class="btn-apply" style="padding:6px 12px; font-size:0.75rem;" onclick="showToast('अर्ज माहिती उघडली!')">पहा</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 7: Business Directory ================= -->
+          <div class="sim-screen" id="sim-screen-7">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">व्यवसाय निर्देशिका</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <input type="text" class="form-control" placeholder="व्यवसायाचा शोध..." style="margin-bottom:10px; font-size:0.85rem;" />
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <div class="biz-card" style="padding:12px;">
+                  <div style="font-weight:700; font-size:0.92rem;">श्री गणेश किराणा स्टोअर्स</div>
+                  <div style="font-size:0.75rem; color:#64748b;">किराणा | 98765 43210</div>
+                  <div style="margin-top:8px;">
+                    <a href="https://wa.me/919876543210" target="_blank" class="btn-whatsapp" style="padding:5px 12px; font-size:0.75rem;">
+                      💬 WhatsApp
+                    </a>
+                  </div>
+                </div>
+                <div class="biz-card" style="padding:12px;">
+                  <div style="font-weight:700; font-size:0.92rem;">साई मेडिकल स्टोअर्स</div>
+                  <div style="font-size:0.75rem; color:#64748b;">औषधालय | 98765 32109</div>
+                  <div style="margin-top:8px;">
+                    <a href="https://wa.me/919876532109" target="_blank" class="btn-whatsapp" style="padding:5px 12px; font-size:0.75rem;">
+                      💬 WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 8: Complaints & Help ================= -->
+          <div class="sim-screen" id="sim-screen-8">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">तक्रार नोंदवा</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <form onsubmit="event.preventDefault(); showToast('✅ तक्रार नोंदवली गेली!'); showMobileScreen(2);">
+                <div style="margin-bottom:8px;">
+                  <label style="font-size:0.8rem; font-weight:700;">तक्रारीचा प्रकार *</label>
+                  <select class="form-control" style="font-size:0.85rem;">
+                    <option>रस्ता / गटारे</option>
+                    <option>पाणीपुरवठा</option>
+                    <option>वीज पुरवठा</option>
+                  </select>
+                </div>
+                <div style="margin-bottom:8px;">
+                  <label style="font-size:0.8rem; font-weight:700;">तक्रारीचे वर्णन *</label>
+                  <textarea class="form-control" rows="3" placeholder="तक्रार लिहा..." style="font-size:0.85rem;"></textarea>
+                </div>
+                <button type="submit" class="btn-submit-complaint" style="padding:10px; font-size:0.88rem;">
+                  तक्रार सबमिट करा
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 9: Marketplace ================= -->
+          <div class="sim-screen" id="sim-screen-9">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">मार्केटप्लेस</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <div class="filter-pills" style="margin-bottom:10px;">
+                <button class="pill-btn active">सर्व</button>
+                <button class="pill-btn">विक्री</button>
+                <button class="pill-btn">भाडे</button>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <div class="market-item-card">
+                  <div class="market-item-body" style="padding:12px;">
+                    <div class="market-item-price" style="font-size:1.15rem;">₹600 <small>(25 किलो)</small></div>
+                    <div class="market-item-title" style="font-size:0.9rem;">ताजी लाल कांदा</div>
+                    <div style="font-size:0.75rem; color:#64748b;">शेतकरी थेट विक्री • २ तासांपूर्वी</div>
+                  </div>
+                  <div class="market-item-actions" style="padding:8px 12px;">
+                    <a href="https://wa.me/919822114455" class="btn-market-contact btn-market-whatsapp" style="font-size:0.75rem;">💬 WhatsApp</a>
+                  </div>
+                </div>
+                <div class="market-item-card">
+                  <div class="market-item-body" style="padding:12px;">
+                    <div class="market-item-price" style="font-size:1.15rem;">₹3,50,000</div>
+                    <div class="market-item-title" style="font-size:0.9rem;">जुना ट्रॅक्टर (Swaraj 735)</div>
+                    <div style="font-size:0.75rem; color:#64748b;">विक्रेता • १ दिवसापूर्वी</div>
+                  </div>
+                  <div class="market-item-actions" style="padding:8px 12px;">
+                    <a href="https://wa.me/919860123456" class="btn-market-contact btn-market-whatsapp" style="font-size:0.75rem;">💬 WhatsApp</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 10: Village Map ================= -->
+          <div class="sim-screen" id="sim-screen-10">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">गावाचा नकाशा</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <div style="height:220px; background:#dbeafe; border-radius:12px; display:flex; align-items:center; justify-content:center; text-align:center; padding:10px; border:2px dashed #93c5fd;">
+                <div>
+                  <div style="font-size:2rem;">🗺️</div>
+                  <strong>आपलं गाव डिजिटल नकाशा</strong>
+                  <div style="font-size:0.75rem; color:#475569; margin-top:4px;">शाळा, प्राथमिक आरोग्य केंद्र, मंदिर, पाण्याची टाकी पिन उपलब्ध</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 11: Events & Gallery ================= -->
+          <div class="sim-screen" id="sim-screen-11">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">कार्यक्रम व उत्सव</div>
+              <div></div>
+            </div>
+            <div style="padding: 12px;">
+              <div class="event-card" style="margin-bottom:10px;">
+                <div class="event-card-body" style="padding:12px;">
+                  <div class="event-date-badge">३० मार्च २०२५</div>
+                  <h4 style="font-size:0.95rem;">गुढीपाडवा उत्सव व ग्राम गौरव सोहळा</h4>
+                  <p style="font-size:0.78rem; color:#64748b;">ग्रामपंचायत चौक • सकाळी ७:३० वाजता</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 12: Profile / Account ================= -->
+          <div class="sim-screen" id="sim-screen-12">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">माझा प्रोफाइल</div>
+              <div></div>
+            </div>
+            <div style="padding: 14px;">
+              <div style="display:flex; align-items:center; gap:12px; background:#fff; padding:14px; border-radius:12px; margin-bottom:14px; border:1px solid #e2e8f0;">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" style="width:50px; height:50px; border-radius:50%;" />
+                <div>
+                  <h4 style="font-size:1rem; font-weight:700;">अभिजीत मंगसे</h4>
+                  <div style="font-size:0.75rem; color:#64748b;">Resident • प्रभाग क्र. ३</div>
+                </div>
+              </div>
+              <div style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid #e2e8f0;">
+                <div class="drawer-item" style="color:#0f172a;" onclick="showToast('माझी माहिती')">
+                  <span>👤 माझी माहिती</span> <span>›</span>
+                </div>
+                <div class="drawer-item" style="color:#0f172a;" onclick="showMobileScreen(8)">
+                  <span>📝 माझ्या तक्रारी</span> <span>›</span>
+                </div>
+                <div class="drawer-item" style="color:#0f172a;" onclick="showMobileScreen(9)">
+                  <span>🛒 माझ्या जाहिराती</span> <span>›</span>
+                </div>
+                <div class="drawer-item" style="color:#dc2626;" onclick="showMobileScreen(14)">
+                  <span>🚪 लॉगआउट</span> <span>›</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 13: Mobile Admin View ================= -->
+          <div class="sim-screen" id="sim-screen-13">
+            <div class="sim-app-header dark">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">Admin Dashboard</div>
+              <button class="sim-icon-btn" onclick="setMode('admin')">💻</button>
+            </div>
+            <div style="padding: 12px;">
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;">
+                <div class="admin-stat-card" style="padding:10px;">
+                  <div>
+                    <div style="font-size:0.7rem; color:#64748b;">USERS</div>
+                    <strong style="font-size:1.2rem;">1,248</strong>
+                  </div>
+                </div>
+                <div class="admin-stat-card" style="padding:10px;">
+                  <div>
+                    <div style="font-size:0.7rem; color:#64748b;">COMPLAINTS</div>
+                    <strong style="font-size:1.2rem; color:#b45309;">23</strong>
+                  </div>
+                </div>
+              </div>
+              <button class="btn-submit-complaint" onclick="setMode('admin')" style="padding:8px; font-size:0.85rem;">
+                पूर्ण प्रशासक पॅनेल उघडा (Desktop View)
+              </button>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 14: Login Screen ================= -->
+          <div class="sim-screen" id="sim-screen-14">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(2)">←</button>
+              <div class="sim-header-title">लॉगिन</div>
+              <div></div>
+            </div>
+            <div style="padding: 24px 16px; text-align:center;">
+              <div style="font-size:2.4rem; margin-bottom:6px;">🌱</div>
+              <h3 style="font-size:1.2rem; font-weight:800; color:#0b4f2f;">आपलं गाव</h3>
+              <p style="font-size:0.8rem; color:#64748b; margin-bottom:20px;">Smart Village Portal</p>
+              
+              <div style="text-align:left; margin-bottom:12px;">
+                <label style="font-size:0.8rem; font-weight:700;">मोबाईल नंबर</label>
+                <input type="tel" class="form-control" value="9876543210" style="margin-top:4px;" />
+              </div>
+              <div style="text-align:left; margin-bottom:16px;">
+                <label style="font-size:0.8rem; font-weight:700;">पासवर्ड</label>
+                <input type="password" class="form-control" value="password" style="margin-top:4px;" />
+              </div>
+              
+              <button class="btn-submit-complaint" onclick="showToast('लॉगिन यशस्वी!'); showMobileScreen(2);">
+                लॉगिन करा
+              </button>
+              
+              <div style="margin-top:16px; font-size:0.8rem;">
+                <a style="color:#137547; font-weight:700; cursor:pointer;" onclick="showMobileScreen(15)">नवीन खाते तयार करा</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= SCREEN 15: Register Screen ================= -->
+          <div class="sim-screen" id="sim-screen-15">
+            <div class="sim-app-header">
+              <button class="sim-icon-btn" onclick="showMobileScreen(14)">←</button>
+              <div class="sim-header-title">नवीन नोंदणी</div>
+              <div></div>
+            </div>
+            <div style="padding: 20px 16px;">
+              <div style="margin-bottom:10px;">
+                <label style="font-size:0.8rem; font-weight:700;">पूर्ण नाव *</label>
+                <input type="text" class="form-control" placeholder="उदा. रमेश बोरुडे" />
+              </div>
+              <div style="margin-bottom:10px;">
+                <label style="font-size:0.8rem; font-weight:700;">मोबाईल नंबर *</label>
+                <input type="tel" class="form-control" placeholder="+91 98765 00000" />
+              </div>
+              <div style="margin-bottom:16px;">
+                <label style="font-size:0.8rem; font-weight:700;">गाव निवडा *</label>
+                <select class="form-control">
+                  <option>आपलं गाव (शिरूर)</option>
+                  <option>संगमनेर</option>
+                  <option>बारामती</option>
+                </select>
+              </div>
+              <button class="btn-submit-complaint" onclick="showToast('खाते तयार झाले!'); showMobileScreen(2);">
+                नोंदणी करा (Register)
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Phone Bottom Navigation Bar (Screens 2-12) -->
+        <nav class="phone-bottom-nav" id="phone-bottom-nav">
+          <button class="phone-nav-item active" data-screen="2">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+          </button>
+          <button class="phone-nav-item" data-screen="5">
+            <span class="nav-icon">🌾</span>
+            <span>शेती</span>
+          </button>
+          <button class="phone-nav-item" data-screen="7">
+            <span class="nav-icon">🏪</span>
+            <span>व्यवसाय</span>
+          </button>
+          <button class="phone-nav-item" data-screen="4">
+            <span class="nav-icon">📢</span>
+            <span>सूचना</span>
+          </button>
+          <button class="phone-nav-item" data-screen="12">
+            <span class="nav-icon">👤</span>
+            <span>प्रोफाइल</span>
+          </button>
+        </nav>
+
+        <!-- Home Indicator -->
+        <div class="phone-home-indicator"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       MODE 3: Dedicated Admin Dashboard (Screen 13 from Mockup)
+       ======================================================================= -->
+  <div class="admin-layout-wrapper" id="admin-layout-wrapper">
+    <!-- Dark Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <div class="admin-brand-icon">🌱</div>
+        <div>
+          <h3>Smart Village</h3>
+          <small style="color: #94a3b8; font-size: 0.72rem;">Admin Console</small>
+        </div>
+      </div>
+
+      <ul class="admin-nav-list">
+        <li>
+          <a class="admin-nav-item active">
+            <span class="admin-nav-icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="showToast('नागरिक यादी उघडली')">
+            <span class="admin-nav-icon">👥</span>
+            <span>Users & Roles</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="openAddNoticeModal()">
+            <span class="admin-nav-icon">📢</span>
+            <span>Notices & News</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="document.getElementById('admin-complaints-tbody').scrollIntoView({behavior:'smooth'})">
+            <span class="admin-nav-icon">📝</span>
+            <span>Complaints</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="openVerifyBizModal()">
+            <span class="admin-nav-icon">🏪</span>
+            <span>Business Verification</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="showToast('मार्केट जाहिराती यादी')">
+            <span class="admin-nav-icon">🛒</span>
+            <span>Marketplace</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="openAddEventModal()">
+            <span class="admin-nav-icon">📅</span>
+            <span>Events & Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="showToast('नोकरी व्यवस्थापन')">
+            <span class="admin-nav-icon">💼</span>
+            <span>Jobs & Education</span>
+          </a>
+        </li>
+        <li>
+          <a class="admin-nav-item" onclick="showToast('प्रशासक सेटिंग्ज')">
+            <span class="admin-nav-icon">⚙️</span>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Admin Main Panel -->
+    <main class="admin-main-panel">
+      <!-- Topbar -->
+      <div class="admin-topbar">
+        <div class="admin-title-area">
+          <h2 data-i18n="adminTitle">Admin Dashboard</h2>
+          <span style="font-size: 0.8rem; color: #64748b;">ग्रामपंचायत प्रशासकीय नियंत्रण कक्ष • आपलं गाव</span>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:14px;">
+          <button class="pill-btn" onclick="setMode('portal')">🌐 सार्वजनिक पोर्टल पहा</button>
+          <div class="admin-user-pill">
+            <div class="admin-user-avatar">A</div>
+            <span class="admin-user-name">Admin (ग्रामसेवक) ▾</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Body -->
+      <div class="admin-body">
+        <!-- 4 Stat Metric Cards (Exact match Screen 13) -->
+        <div class="admin-stats-grid">
+          <!-- Stat 1: Total Users -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon blue">👥</div>
+            <div class="admin-stat-info">
+              <div class="stat-label">Total Users</div>
+              <div class="stat-val" id="admin-stat-users">1,248</div>
+            </div>
+          </div>
+          <!-- Stat 2: Pending Complaints -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon green">📝</div>
+            <div class="admin-stat-info">
+              <div class="stat-label">Pending Complaints</div>
+              <div class="stat-val" id="admin-stat-complaints">23</div>
+            </div>
+          </div>
+          <!-- Stat 3: Pending Listings -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon sky">🛒</div>
+            <div class="admin-stat-info">
+              <div class="stat-label">Pending Listings</div>
+              <div class="stat-val" id="admin-stat-listings">12</div>
+            </div>
+          </div>
+          <!-- Stat 4: Upcoming Events -->
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon cyan">📅</div>
+            <div class="admin-stat-info">
+              <div class="stat-label">Upcoming Events</div>
+              <div class="stat-val" id="admin-stat-events">6</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Complaints Table & Quick Actions Grid -->
+        <div class="admin-content-grid">
+          <!-- Recent Complaints Card -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title" data-i18n="recentComplaintsTitle">Recent Complaints</h3>
+              <span class="notice-badge" style="background:#e0f2fe; color:#0369a1;">Realtime Sync</span>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-complaints-tbody">
+                  <!-- Generated by js/admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Quick Actions Card -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3 class="admin-card-title" data-i18n="quickActions">Quick Actions</h3>
+            </div>
+            <div class="quick-actions-list">
+              <button class="admin-action-btn" onclick="openAddNoticeModal()">
+                <span class="btn-icon">📢</span>
+                <span data-i18n="btnAddNotice">+ Add Notice</span>
+              </button>
+              <button class="admin-action-btn" onclick="openVerifyBizModal()">
+                <span class="btn-icon">🏪</span>
+                <span data-i18n="btnVerifyBiz">Verify Business</span>
+              </button>
+              <button class="admin-action-btn" onclick="showToast('नोकरी सूचना फॉर्म उघडला')">
+                <span class="btn-icon">💼</span>
+                <span data-i18n="btnManageJobs">Manage Jobs</span>
+              </button>
+              <button class="admin-action-btn" onclick="openAddEventModal()">
+                <span class="btn-icon">📅</span>
+                <span data-i18n="btnAddEvent">+ Add Event</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- =======================================================================
+       UNIVERSAL MODALS & TOAST ALERTS
+       ======================================================================= -->
+
+  <!-- 1. Notice Detail Modal -->
+  <div class="modal-backdrop" id="notice-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">सूचना तपशील</h3>
+        <button class="modal-close-btn" onclick="closeModal('notice-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="notice-detail-body">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Job Detail Modal -->
+  <div class="modal-backdrop" id="job-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">नोकरी व भरती तपशील</h3>
+        <button class="modal-close-btn" onclick="closeModal('job-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="job-detail-body">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Post Marketplace Ad Modal -->
+  <div class="modal-backdrop" id="post-ad-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">+ नवीन जाहिरात द्या (Post Free Ad)</h3>
+        <button class="modal-close-btn" onclick="closeModal('post-ad-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); showToast('जाहिरात प्रसिद्ध झाली!'); closeModal('post-ad-modal');">
+          <div class="form-group">
+            <label class="form-label">प्रवर्ग (Category) *</label>
+            <select class="form-control" required>
+              <option>शेती माल विक्री (कांदा, धान्य, फळे)</option>
+              <option>वाहने व शेती अवजारे (ट्रॅक्टर, नांगर)</option>
+              <option>घर / गाळे भाड्याने</option>
+              <option>स्थानिक सेवा / क्लासेस</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">शीर्षक (Title) *</label>
+            <input type="text" class="form-control" placeholder="उदा. ताजी कांदा (२५ किलो कट्टे)" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">अपेक्षित किंमत (Price) *</label>
+            <input type="text" class="form-control" placeholder="उदा. ₹600 किंवा ₹3,50,000" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">मोबाईल नंबर (WhatsApp) *</label>
+            <input type="tel" class="form-control" placeholder="+91 9822114455" required />
+          </div>
+          <button type="submit" class="btn-submit-complaint">
+            जाहिरात पोस्ट करा
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. SOS Emergency Modal -->
+  <div class="modal-backdrop" id="sos-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" style="color: #dc2626;">🚨 आपत्कालीन हेल्पलाईन क्रमांक</h3>
+        <button class="modal-close-btn" onclick="closeModal('sos-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="background:#fee2e2; padding:12px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="color:#b91c1c;">पोलीस आपत्कालीन मदत</strong>
+              <div style="font-size:0.8rem; color:#64748b;">२४ तास कार्यरत</div>
+            </div>
+            <a href="tel:112" class="btn-apply" style="background:#dc2626;">📞 112 डायल करा</a>
+          </div>
+          <div style="background:#fee2e2; padding:12px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong style="color:#b91c1c;">शासकीय रुग्णवाहिका (Ambulance)</strong>
+              <div style="font-size:0.8rem; color:#64748b;">मोफत वैद्यकीय सेवा</div>
+            </div>
+            <a href="tel:108" class="btn-apply" style="background:#dc2626;">📞 108 डायल करा</a>
+          </div>
+          <div style="background:#f1f5f9; padding:12px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong>ग्रामपंचायत कार्यालय कोठे</strong>
+              <div style="font-size:0.8rem; color:#64748b;">ता. नेवासा, जि. अहिल्यानगर</div>
+            </div>
+            <a href="tel:02427245100" class="btn-apply" style="background:#0284c7;">📞 ०२४२७-२४५१००</a>
+          </div>
+          <div style="background:#f1f5f9; padding:12px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <strong>महावितरण वीज तक्रार कक्ष</strong>
+              <div style="font-size:0.8rem; color:#64748b;">टोल-फ्री क्रमांक</div>
+            </div>
+            <a href="tel:1912" class="btn-apply" style="background:#0284c7;">📞 1912</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Login Modal -->
+  <div class="modal-backdrop" id="login-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" data-i18n="loginTitle">पोर्टल लॉगिन</h3>
+        <button class="modal-close-btn" onclick="closeModal('login-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="event.preventDefault(); showToast('लॉगिन यशस्वी!'); closeModal('login-modal');">
+          <div class="form-group">
+            <label class="form-label" data-i18n="mobileNumber">मोबाईल नंबर *</label>
+            <input type="tel" class="form-control" value="9876543210" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" data-i18n="password">पासवर्ड *</label>
+            <input type="password" class="form-control" value="password" required />
+          </div>
+          <button type="submit" class="btn-submit-complaint" style="margin-top:10px;" data-i18n="loginBtn">
+            लॉगिन करा
+          </button>
+          <div style="display:flex; justify-content:space-between; margin-top:14px; font-size:0.85rem;">
+            <a style="color:#0284c7; cursor:pointer;" onclick="showToast('OTP पाठवला गेला!')">पासवर्ड विसरलात?</a>
+            <a style="color:#137547; font-weight:700; cursor:pointer;" onclick="closeModal('login-modal'); setMode('admin');">प्रशासक लॉगिन (Admin) →</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       NATIVE MOBILE APP UI (Fixed Bottom Navigation & FAB for Mobile Devices)
+       ======================================================================= -->
+  <nav class="native-mobile-bottom-nav" id="native-mobile-bottom-nav">
+    <button class="mobile-nav-tab active" data-target="home" onclick="navigateToSection('home')">
+      <span class="tab-icon">🏠</span>
+      <span class="tab-label">मुख्य</span>
+    </button>
+    <button class="mobile-nav-tab" data-target="farmer" onclick="navigateToSection('farmer')">
+      <span class="tab-icon">🌾</span>
+      <span class="tab-label">शेती</span>
+    </button>
+    <button class="mobile-nav-tab" data-target="business" onclick="navigateToSection('business')">
+      <span class="tab-icon">🏪</span>
+      <span class="tab-label">व्यवसाय</span>
+    </button>
+    <button class="mobile-nav-tab" data-target="notices" onclick="navigateToSection('notices')">
+      <span class="tab-icon">📢</span>
+      <span class="tab-label">सूचना</span>
+    </button>
+    <button class="mobile-nav-tab" data-target="map" onclick="navigateToSection('map')">
+      <span class="tab-icon">🗺️</span>
+      <span class="tab-label">नकाशा</span>
+    </button>
+  </nav>
+
+  <!-- Mobile Floating Action Button (Quick Actions) -->
+  <button class="native-mobile-fab" id="native-mobile-fab" onclick="openModal('post-ad-modal')" title="नवीन जाहिरात किंवा तक्रार द्या">
+    <span>+</span>
+  </button>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- JavaScript Files -->
+  <script src="js/data.js"></script>
+  <script src="js/translations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/mobile-simulator.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

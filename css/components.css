@@ -1,0 +1,1249 @@
+/* MyVillage - Smart Village Portal (आपलं गाव)
+ * UI Components Stylesheet
+ */
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero-banner {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg, #0b4f2f 0%, #137547 100%);
+  color: #ffffff;
+  box-shadow: var(--shadow-lg);
+  min-height: 320px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+  mix-blend-mode: overlay;
+  transition: transform 0.6s ease;
+}
+
+.hero-banner:hover .hero-bg-image {
+  transform: scale(1.03);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 79, 47, 0.95) 0%, rgba(19, 117, 71, 0.75) 55%, rgba(11, 79, 47, 0.4) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 36px;
+  max-width: 720px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(245, 158, 11, 0.25);
+  color: #fef08a;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hero-title {
+  font-size: 2.3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: #e2e8f0;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Global Search Bar */
+.hero-search-box {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: var(--radius-full);
+  padding: 6px 8px 6px 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  max-width: 580px;
+}
+
+.hero-search-box input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 0;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  outline: none;
+  font-family: inherit;
+}
+
+.hero-search-box input::placeholder {
+  color: #94a3b8;
+}
+
+.hero-search-btn {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+}
+
+.hero-search-btn:hover {
+  background: var(--primary-dark);
+}
+
+/* ==========================================================================
+   Quick Services Grid (Screen 2)
+   ========================================================================== */
+.services-section {
+  margin-bottom: 36px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 14px;
+}
+
+.service-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  text-decoration: none;
+  color: var(--text-main);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+.service-icon-box {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  transition: transform var(--transition-fast);
+}
+
+.service-card:hover .service-icon-box {
+  transform: scale(1.1);
+}
+
+.service-card.grampanchayat .service-icon-box { background: #e0f2fe; color: #0284c7; }
+.service-card.sheti .service-icon-box { background: #dcfce7; color: #16a34a; }
+.service-card.nokri .service-icon-box { background: #fef3c7; color: #d97706; }
+.service-card.vyavasay .service-icon-box { background: #f3e8ff; color: #9333ea; }
+.service-card.takrar .service-icon-box { background: #fee2e2; color: #dc2626; }
+.service-card.madat .service-icon-box { background: #ffe4e6; color: #e11d48; }
+.service-card.market .service-icon-box { background: #ccfbf1; color: #0d9488; }
+.service-card.itar .service-icon-box { background: #f1f5f9; color: #475569; }
+
+.service-label {
+  font-weight: 700;
+  font-size: 0.88rem;
+  line-height: 1.2;
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   Notices Cards (Screen 4)
+   ========================================================================== */
+.notices-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 18px;
+}
+
+.notice-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.notice-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+.notice-card.pinned {
+  border-left: 4px solid var(--accent-gold);
+}
+
+.notice-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.notice-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--primary-subtle);
+  color: var(--primary-dark);
+}
+
+.notice-date {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.notice-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+
+.notice-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notice-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-color);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.notice-btn {
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.notice-btn:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Farmer Zone (Screen 5)
+   ========================================================================== */
+.farmer-banner-wrap {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  margin-bottom: 24px;
+  height: 240px;
+  box-shadow: var(--shadow-md);
+}
+
+.farmer-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.farmer-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(11, 79, 47, 0.92) 0%, rgba(19, 117, 71, 0.5) 60%, rgba(0, 0, 0, 0.2) 100%);
+  display: flex;
+  align-items: center;
+  padding: 30px;
+  color: #fff;
+}
+
+.farmer-banner-text h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.farmer-tools-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.farmer-tool-btn {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.farmer-tool-btn:hover {
+  border-color: var(--primary-color);
+  background: var(--primary-subtle);
+  transform: translateY(-2px);
+}
+
+.farmer-tool-icon {
+  font-size: 1.6rem;
+}
+
+.farmer-tool-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Farmer Split Layout (Weather + Mandi Rates) */
+.farmer-split-grid {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+}
+
+.weather-card {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  color: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.weather-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.weather-temp {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1;
+  margin: 14px 0 6px;
+}
+
+.weather-condition {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #bae6fd;
+}
+
+.weather-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.weather-detail-item {
+  font-size: 0.85rem;
+}
+
+.weather-detail-item .val {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* Mandi Table */
+.mandi-rates-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.mandi-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.custom-table th {
+  background: var(--bg-surface);
+  color: var(--text-muted);
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.custom-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.custom-table tr:hover {
+  background: #f8fafc;
+}
+
+.trend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.trend-badge.up {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.trend-badge.down {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.trend-badge.stable {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* ==========================================================================
+   Jobs & Education (Screen 6)
+   ========================================================================== */
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.job-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all var(--transition-fast);
+}
+
+.job-card:hover {
+  border-color: var(--primary-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.job-main-info {
+  flex: 1;
+}
+
+.job-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.job-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.badge-new {
+  background: #ef4444;
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.job-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.job-meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.job-action-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  min-width: 150px;
+}
+
+.btn-apply {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-apply:hover {
+  background: var(--primary-dark);
+}
+
+/* ==========================================================================
+   Business Directory (Screen 7)
+   ========================================================================== */
+.biz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 18px;
+}
+
+.biz-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+}
+
+.biz-card:hover {
+  border-color: #22c55e;
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.biz-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.biz-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: #ecfdf5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  border: 1px solid #a7f3d0;
+}
+
+.biz-info h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.3;
+}
+
+.biz-category {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.biz-owner {
+  font-size: 0.85rem;
+  color: #334155;
+  margin: 6px 0;
+}
+
+.biz-location {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.biz-card-footer {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-whatsapp {
+  background: #25d366;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(37, 211, 102, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.btn-whatsapp:hover {
+  background: #1eb956;
+  transform: scale(1.02);
+}
+
+/* ==========================================================================
+   Complaints & Grievance (Screen 8)
+   ========================================================================== */
+.complaints-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 28px;
+}
+
+.complaint-form-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(19, 117, 71, 0.12);
+}
+
+.file-upload-box {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: var(--bg-surface);
+}
+
+.file-upload-box:hover {
+  border-color: var(--primary-color);
+  background: var(--primary-subtle);
+}
+
+.btn-submit-complaint {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(19, 117, 71, 0.25);
+  transition: all var(--transition-fast);
+}
+
+.btn-submit-complaint:hover {
+  background: var(--primary-dark);
+}
+
+/* My Complaints Feed */
+.complaints-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.complaint-ticket {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.ticket-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ticket-id {
+  font-weight: 800;
+  color: var(--primary-dark);
+  font-size: 0.95rem;
+}
+
+.status-pill {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.status-pill.Ongoing { background: #fef3c7; color: #b45309; }
+.status-pill.Resolved { background: #dcfce7; color: #15803d; }
+.status-pill.UnderReview, .status-pill.Under_Review { background: #e0f2fe; color: #0369a1; }
+.status-pill.Open { background: #f1f5f9; color: #475569; }
+
+/* ==========================================================================
+   Marketplace Grid (Screen 9)
+   ========================================================================== */
+.marketplace-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.market-item-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all var(--transition-normal);
+}
+
+.market-item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-light);
+}
+
+.market-item-body {
+  padding: 18px;
+}
+
+.market-item-price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 6px;
+}
+
+.market-item-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.market-item-seller {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.market-item-actions {
+  display: flex;
+  gap: 8px;
+  padding: 12px 18px;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-color);
+}
+
+.btn-market-contact {
+  flex: 1;
+  padding: 8px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.btn-market-whatsapp {
+  background: #25d366;
+  color: #fff;
+}
+
+.btn-market-call {
+  background: #0284c7;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Interactive Village Map & Real Google Maps (Screen 10 - Kothe 414606)
+   ========================================================================== */
+.village-map-container {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 20px;
+  min-height: 540px;
+}
+
+.map-main-view-box {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.map-view-header-bar {
+  padding: 12px 16px;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.map-switcher-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.map-type-btn {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.map-type-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.map-type-btn.active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.open-gmaps-link {
+  background: #0284c7;
+  color: #ffffff;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.open-gmaps-link:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
+}
+
+.google-map-iframe-wrap {
+  flex: 1;
+  min-height: 440px;
+  position: relative;
+}
+
+.google-map-iframe-wrap iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 440px;
+  border: none;
+  display: block;
+}
+
+.map-canvas-wrapper {
+  background: #dbeafe;
+  overflow: hidden;
+  position: relative;
+  flex: 1;
+  min-height: 440px;
+  display: none;
+}
+
+.village-map-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.map-location-pin {
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.map-location-pin:hover, .map-location-pin.active {
+  transform: scale(1.3);
+}
+
+.map-sidebar-details {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.kothe-village-badge {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 14px;
+  font-size: 0.82rem;
+  color: #065f46;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Events & Gallery (Screen 11)
+   ========================================================================== */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.event-card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.event-card-body {
+  padding: 20px;
+}
+
+.event-date-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef3c7;
+  color: #b45309;
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
+}
+
+.event-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+/* ==========================================================================
+   Modals & Backdrop
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-backdrop.open {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: var(--radius-xl);
+  max-width: 540px;
+  width: 100%;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: modalPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes modalPop {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Toast Notifications */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  background: #0f172a;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: toastSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 4px solid var(--primary-light);
+}
+
+@keyframes toastSlide {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Responsiveness for components */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .farmer-split-grid {
+    grid-template-columns: 1fr;
+  }
+  .village-map-container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  .map-canvas-wrapper {
+    height: 380px;
+  }
+  .complaints-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .service-card {
+    padding: 12px 6px;
+  }
+  .service-icon-box {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+  }
+  .service-label {
+    font-size: 0.75rem;
+  }
+  .farmer-tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .hero-title {
+    font-size: 1.6rem;
+  }
+  .hero-content {
+    padding: 24px 18px;
+  }
+  .hero-search-box {
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    padding: 10px;
+  }
+  .hero-search-btn {
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  .job-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .job-action-box {
+    align-items: flex-start;
+    width: 100%;
+  }
+  .btn-apply {
+    width: 100%;
+    text-align: center;
+  }
+}
